@@ -92,11 +92,7 @@ app.get("/", function(req, res, next) {
 
 var constraints = {
     hostname: /^[-a-zA-Z0-9_]{1,32}$/,
-    key: /^([a-fA-F0-9]{64})?$/,
-    email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
-    nickname: /^[-a-zA-Z0-9_ äöüÄÖÜß]{1,64}$/,
-    mac: /^([a-fA-F0-9]{12}|([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2})$/,
-    coords: /^(-?[0-9]{1,3}(\.[0-9]{1,15})? -?[0-9]{1,3}(\.[0-9]{1,15})?)?$/
+    key: /^([a-fA-F0-9]{64})$/
 };
 
 var NodeEntryAlreadyExistsError = function (hostname) {
@@ -124,19 +120,11 @@ function normalizeMac(mac) {
 function createNodeFile(req, res, next) {
     var hostname = normalizeString(req.body.hostname);
     var key = normalizeString(req.body.key);
-    var email = normalizeString(req.body.email);
-    var nickname = normalizeString(req.body.nickname);
-    var mac = normalizeMac(normalizeString(req.body.mac));
-    var coords = normalizeString(req.body.coords);
 
     var filename = peersPath + "/" + hostname;
     var data = "";
 
     data += "# Knotenname: " + hostname + "\n";
-    data += "# Ansprechpartner: " + nickname + "\n";
-    data += "# Kontakt: " + email + "\n";
-    data += "# Koordinaten: " + coords + "\n";
-    data += "# MAC: " + mac + "\n";
     data += "key \"" + key + "\";\n";
 
     console.log("Creating new node file: " + filename);
