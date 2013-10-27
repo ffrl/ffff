@@ -13,11 +13,7 @@
     <script>
         var validationMessages = {
             key: "Der angegebene VPN-Schlüssel ist ungültig.",
-            hostname: "Knotennamen dürfen maximal 32 Zeichen lang sein und nur Klein- und Großbuchstaben, sowie Ziffern, - und _ enthalten.",
-            email: "Die angegebene E-Mail-Adresse ist ungültig.",
-            nickname: "Nicknames dürfen maximal 64 Zeichen lang sein und nur Klein- und Großbuchstaben, sowie Ziffern, - und _ enthalten. Umlaute sind erlaubt.",
-            mac: "Die angegebene MAC-Adresse ist ungültig.",
-            coords: "Bitte gib die Koordinaten wie folgt an, Beispiel: 54.326230588201 10.101561821008"
+            hostname: "Knotennamen dürfen maximal 32 Zeichen lang sein und nur Klein- und Großbuchstaben, sowie Ziffern, - und _ enthalten."
         };
 
         function feedback(cls, msg) {
@@ -65,20 +61,12 @@
 
             var hostname = $("input[name=hostname]").val();
             var key = $("input[name=key]").val();
-            var email = $("input[name=email]").val();
-            var nickname= $("input[name=nickname]").val();
-            var coords = $("input[name=coords]").val();
-            var mac = $("input[name=mac]").val();
 
             $.ajax("/api/node", {
                 type: "POST",
                 data: {
                     hostname: hostname,
-                    key: key,
-                    email: email,
-                    nickname: nickname,
-                    coords: coords,
-                    mac: mac
+                    key: key
                 },
                 success: function () {
                     success("Glückwunsch, der Knoten ist jetzt angemeldet!");
@@ -141,35 +129,9 @@
                         <span class="feedback help-block"></span>
                     </div>
                     <div class="form-group key">
-                        <label class="control-label" for="key">VPN-Schlüssel (bitte nur weglassen, wenn du weisst, was du tust)</label>
+                        <label class="control-label" for="key">VPN-Schlüssel</label>
                         <input type="text" disabled="disabled" class="form-control" name="key" placeholder="VPN-Schlüssel" />
                         <span class="feedback help-block"></span>
-                    </div>
-                    <div class="form-group mac">
-                        <label class="control-label" for="mac">MAC-Adresse</label>
-                        <input type="text" disabled="disabled" class="form-control" name="mac" placeholder="MAC-Adresse" />
-                        <span class="feedback help-block"></span>
-                    </div>
-                    <div class="form-group nickname">
-                        <label class="control-label" for="nickname">Kontakt - Nickname / Name</label>
-                        <input type="text" disabled="disabled" class="form-control" name="nickname" placeholder="Kontakt - Nickname / Name" />
-                        <span class="feedback help-block"></span>
-                    </div>
-                    <div class="form-group email">
-                        <label class="control-label" for="email">Kontakt - E-Mail-Adresse</label>
-                        <input type="text" disabled="disabled" class="form-control" name="email" placeholder="Kontakt - E-Mail-Adresse" />
-                        <span class="feedback help-block"></span>
-                    </div>
-                    <div class="form-group coords">
-                        <label class="control-label" for="coords">Koordinaten des Knotens (freiwillig)</label>
-                        <input type="text" disabled="disabled" class="form-control" name="coords" placeholder="Koordinaten" />
-                        <span class="feedback help-block"></span>
-                        <span class="help-block">
-                            Du kannst die Koordinaten in der <a target="_blank" href="http://freifunk-gw01.hamburg.ccc.de/ffhhmap/geomap.html">Knotenkarte</a>
-                            rausfinden, indem du zum Standort des Knotens gehst, dann oben "Koordinaten beim
-                            nächsten Klick anzeigen" klickst und dann auf der Karte auf den genauen Standort
-                            klickst.
-                        </span>
                     </div>
                     <button class="btn btn-primary" type="submit" disabled="disabled">
                         <strong>+</strong>
