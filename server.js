@@ -121,7 +121,7 @@ function createNodeFile(req, res, next) {
     var hostname = normalizeString(req.body.hostname);
     var key = normalizeString(req.body.key);
 
-    var filename = peersPath + "/" + hostname;
+    var filename = peersPath + "/" + key;
     var data = "";
 
     data += "# Knotenname: " + hostname + "\n";
